@@ -9,5 +9,6 @@ export interface ITempResp {
 export interface ErrorHandle{
     cod: number;
     message: string;
+    isError: boolean;
 
 }
