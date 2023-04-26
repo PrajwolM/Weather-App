@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./App.css";
 import { ITempResp, ErrorHandle } from "./utils/type";
@@ -28,9 +28,8 @@ function App() {
   };
   const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    {
-      handleSearch();
-    }
+    handleSearch();
+    
   };
 
 
