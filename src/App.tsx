@@ -15,7 +15,6 @@ function App() {
   const [err,setErr]=useState<ErrorHandle>()
 
   const handleSearch = () => {
-    console.log(search);
     fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
       .then(async (res) => await res.json())
       .then((result) => {
@@ -30,7 +29,7 @@ function App() {
   const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     {
-      handleSearch;
+      handleSearch();
     }
   };
 
