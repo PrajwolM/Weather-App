@@ -7,14 +7,18 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const [places, setPlaces] = useState<string[]>(["kathmandu"]);
   const handleAddPlace = (location: string) => {
-    const changePlace = [...places, location];
-
-    setPlaces(changePlace);
+    if (places.length < 3) {
+      const changePlace = [...places, location];
+      setPlaces(changePlace);
+    } else {
+      alert("Only 3 places can be shown simultaneously");
+    }
   };
   const handleRemovePlace = (index: number) => {
     const changePlace = [...places];
-    const newPlace = changePlace.splice(index + 1, 1);
-    setPlaces(newPlace);
+    changePlace.splice(index, 1);
+    console.log(changePlace);
+    setPlaces(changePlace);
   };
   return (
     <div className="flex  flex-col  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] ">
