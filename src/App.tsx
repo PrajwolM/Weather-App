@@ -12,6 +12,9 @@ function App() {
       setPlaces(changePlace);
     } else {
       alert("Only 3 places can be shown simultaneously");
+      const changePlace = [...places, location];
+      changePlace.splice(0, 1);
+      setPlaces(changePlace);
     }
   };
   const handleRemovePlace = (index: number) => {
