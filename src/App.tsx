@@ -4,25 +4,46 @@ import "./App.css";
 import Homepage from "./components/Homepage";
 
 function App() {
-  const [places, setPlaces] = useState<string[]>([
-    "kathmandu",
-    "banepa",
-    "bhaktapur",
-  ]);
-  const handleChangePlace = (location: string, index: number) => {
-    const changePlace = [...places];
+  const [search, setSearch] = useState<string>("");
+  const [places, setPlaces] = useState<string[]>(["kathmandu"]);
+  const handleAddPlace = (location: string) => {
+    const changePlace = [...places, location];
 
-    changePlace[index] = location;
     setPlaces(changePlace);
-    console.log(places);
   };
-
+  const handleRemovePlace = (index: number) => {
+    const changePlace = [...places];
+    const newPlace = changePlace.splice(index + 1, 1);
+    setPlaces(newPlace);
+  };
   return (
-    <div className="flex space-y-7 flex-col  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] ">
-      <div className=" justify-center">
-        <h1 className="text-5xl  font-sans  top-5 left-5">
+    <div className="flex  flex-col  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] ">
+      <div className="flex flex-row justify-center">
+        <h1 className="text-5xl mx-32 my-3 font-sans  ">
           Weather<span className="font-black">Forecast</span>
         </h1>
+        <div className="my-6">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log(search);
+              handleAddPlace(search);
+            }}
+          >
+            <input
+              className=" rounded-l-md py-1 px-2 rounded-1-md border-1 border-white"
+              type="text"
+              placeholder="Enter location"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              className="py-1 px-2 rounded-r-md bg-transparent hover:bg-green-700 text-black font-semibold hover:text-white border border-black hover:border-transparent "
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
       </div>
       <br />
       <div className=" mx-2 grid grid-cols-3 w-full">
@@ -32,7 +53,7 @@ function App() {
               <Homepage
                 name={element}
                 index={index}
-                changePlace={handleChangePlace}
+                handleRemoval={handleRemovePlace}
               />
             </div>
           );

@@ -4,7 +4,7 @@ import { ITempResp, ErrorHandle } from "../utils/type";
 type places = {
   name: string;
   index: number;
-  changePlace: (location: string, index: number) => void;
+  handleRemoval: (index: number) => void;
 };
 export default function Homepage(props: places) {
   const api = {
@@ -13,8 +13,11 @@ export default function Homepage(props: places) {
   };
   const [homeInfo, setHomeInfo] = useState<ITempResp | null>(null);
   const [err, setErr] = useState<ErrorHandle | null>(null);
-  const [search, setSearch] = useState<string>("");
   console.log(props.name);
+  const removePlace = (index: number) => {
+    props.handleRemoval(index);
+    console.log("removed");
+  };
   useEffect(() => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${props.name}&units=metric&APPID=${api.key}`
@@ -32,27 +35,6 @@ export default function Homepage(props: places) {
   }, [props.name]);
   return (
     <div className="w-full  md:max-w-[479px] p-3 flex flex-col text-center   lg:p-24 h-64 lg:h-[500px] bg-white bg-opacity-40 backdrop-blur-lg rounded drop-shadow-lg text-zinc-700">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(search);
-          props.changePlace(search, props.index);
-        }}
-      >
-        <input
-          className=" rounded-l-md py-1 px-2 rounded-1-md border-1 border-white"
-          type="text"
-          placeholder="Enter location"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          className="py-1 px-2 rounded-r-md bg-transparent hover:bg-green-700 text-black font-semibold hover:text-white border border-black hover:border-transparent "
-          type="submit"
-        >
-          Search
-        </button>
-      </form>
-
       {homeInfo && (
         <div className=" text-xl">
           <p className=" py-1 px-2  text-2xl">{homeInfo?.name}</p>
@@ -74,6 +56,9 @@ export default function Homepage(props: places) {
           {err?.cod} Error: {err.message}
         </div>
       )}
+      <div>
+        <button onClick={() => removePlace(props.index)}>🗙</button>
+      </div>
     </div>
   );
 }
