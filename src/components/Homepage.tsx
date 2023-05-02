@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ITempResp } from "../utils/type";
+import { ITempResp, ErrorHandle } from "../utils/type";
 
 type places = {
   name: string;
@@ -11,7 +11,8 @@ export default function Homepage(props: places) {
     key: "ba6d7b60dd9d3f68e6880210d2ab6eb8",
     base: "https://api.openweathermap.org/data/2.5/",
   };
-  const [homeInfo, setHomeInfo] = useState<ITempResp>();
+  const [homeInfo, setHomeInfo] = useState<ITempResp | null>(null);
+  const [err, setErr] = useState<ErrorHandle | null>(null);
   const [search, setSearch] = useState<string>("");
   console.log(props.name);
   useEffect(() => {
@@ -20,7 +21,13 @@ export default function Homepage(props: places) {
     )
       .then(async (res) => await res.json())
       .then((result) => {
-        setHomeInfo(() => result);
+        if (result?.cod !== 200) {
+          setErr(result);
+          setHomeInfo(null);
+        } else {
+          setHomeInfo(() => result);
+          setErr(null);
+        }
       });
   }, [props.name]);
   return (
@@ -60,6 +67,11 @@ export default function Homepage(props: places) {
           <br />
           Weather: <span> {homeInfo?.weather[0]?.main}</span>
           <p> {homeInfo?.weather[0]?.description}</p>
+        </div>
+      )}
+      {err && (
+        <div>
+          {err?.cod} Error: {err.message}
         </div>
       )}
     </div>

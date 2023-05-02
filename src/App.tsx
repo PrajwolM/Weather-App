@@ -35,8 +35,9 @@ function App() {
     "banepa",
     "bhaktapur",
   ]);
-  const changePlace = places;
   const handleChangePlace = (location: string, index: number) => {
+    const changePlace = [...places];
+
     changePlace[index] = location;
     setPlaces(changePlace);
     console.log(places);
