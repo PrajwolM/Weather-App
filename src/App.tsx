@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 
 import "./App.css";
+// import useModal from "./hooks/useModal";
+// import Modal from "./components/Modal";
 import Homepage from "./components/Homepage";
 
 function App() {
   const [search, setSearch] = useState<string>("");
   const [places, setPlaces] = useState<string[]>(["kathmandu"]);
   const handleAddPlace = (location: string) => {
-    if (places.length < 3) {
-      const changePlace = [...places, location];
-      setPlaces(changePlace);
-    } else {
-      alert("Only 3 places can be shown simultaneously");
-      const changePlace = [...places, location];
-      changePlace.splice(0, 1);
-      setPlaces(changePlace);
+    if (!places.includes(location)) {
+      if (places.length < 3) {
+        const changePlace = [...places, location];
+        setPlaces(changePlace);
+      } else {
+        alert("Only 3 places can be shown simultaneously");
+        const changePlace = [...places, location];
+        changePlace.splice(0, 1);
+        setPlaces(changePlace);
+      }
     }
   };
   const handleRemovePlace = (index: number) => {
@@ -24,7 +28,7 @@ function App() {
     setPlaces(changePlace);
   };
   return (
-    <div className="flex  flex-col  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] ">
+    <div className="flex  flex-col z-0  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-screen w-screen ">
       <div className="flex flex-row justify-center">
         <h1 className="text-5xl mx-32 my-3 font-sans  ">
           Weather<span className="font-black">Forecast</span>
