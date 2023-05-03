@@ -16,10 +16,9 @@ export default function Homepage(props: places) {
   };
   const [homeInfo, setHomeInfo] = useState<ITempResp | null>(null);
   const [err, setErr] = useState<ErrorHandle | null>(null);
-  console.log(props.name);
+
   const removePlace = (index: number) => {
     props.handleRemoval(index);
-    console.log("removed");
   };
   useEffect(() => {
     fetch(
@@ -32,7 +31,7 @@ export default function Homepage(props: places) {
           setHomeInfo(null);
         } else {
           setHomeInfo(() => result);
-          console.log(result);
+
           setErr(null);
         }
       });

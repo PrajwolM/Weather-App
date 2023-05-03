@@ -24,7 +24,7 @@ function App() {
   const handleRemovePlace = (index: number) => {
     const changePlace = [...places];
     changePlace.splice(index, 1);
-    console.log(changePlace);
+
     setPlaces(changePlace);
   };
   return (
@@ -37,7 +37,7 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(search);
+
               handleAddPlace(search);
             }}
           >
