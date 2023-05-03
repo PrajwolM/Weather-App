@@ -57,7 +57,7 @@ function App() {
         </div>
       </div>
       <br />
-      <div className=" mx-2 grid grid-cols-3 w-full">
+      <div className=" mx-24 grid grid-cols-3 w-full">
         {places.map((element, index) => {
           return (
             <div key={element}>
