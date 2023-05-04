@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 import "./App.css";
-// import useModal from "./hooks/useModal";
-// import Modal from "./components/Modal";
-import Homepage from "./components/Homepage";
+import Module from "./components/Module";
 
 function App() {
   const [search, setSearch] = useState<string>("");
-  const [places, setPlaces] = useState<string[]>(["kathmandu"]);
+  const [places, setPlaces] = useState<string[]>([]);
+  useEffect(() => {
+    const HOME = localStorage.getItem("home") ?? "";
+    const newPlace: string[] = [];
+    newPlace.push(HOME);
+    setPlaces(newPlace);
+  }, []);
+
   const handleAddPlace = (location: string) => {
     if (!places.includes(location)) {
       if (places.length < 3) {
@@ -21,6 +27,9 @@ function App() {
       }
     }
   };
+  const setHomePlace = (value: string) => {
+    localStorage.setItem("home", value);
+  };
   const handleRemovePlace = (index: number) => {
     const changePlace = [...places];
     changePlace.splice(index, 1);
@@ -28,7 +37,7 @@ function App() {
     setPlaces(changePlace);
   };
   return (
-    <div className="flex  flex-col z-0  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-screen w-screen ">
+    <div className="flex  flex-col z-0  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-[100vw] ">
       <div className="flex flex-row justify-center">
         <h1 className="text-5xl mx-32 my-3 font-sans  ">
           Weather<span className="font-black">Forecast</span>
@@ -53,6 +62,12 @@ function App() {
             >
               Search
             </button>
+            <button
+              className="py-1  mx-3 px-2 rounded-md bg-transparent hover:bg-green-700 text-black font-semibold hover:text-white border border-black hover:border-transparent "
+              onClick={() => setHomePlace(search)}
+            >
+              Set Home Location
+            </button>
           </form>
         </div>
       </div>
@@ -61,7 +76,7 @@ function App() {
         {places.map((element, index) => {
           return (
             <div key={element}>
-              <Homepage
+              <Module
                 name={element}
                 index={index}
                 handleRemoval={handleRemovePlace}

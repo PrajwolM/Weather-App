@@ -8,7 +8,7 @@ type places = {
   index: number;
   handleRemoval: (index: number) => void;
 };
-export default function Homepage(props: places) {
+export default function Module(props: places) {
   const { isOpen, toggle } = useModal();
   const api = {
     key: "ba6d7b60dd9d3f68e6880210d2ab6eb8",
@@ -35,9 +35,9 @@ export default function Homepage(props: places) {
           setErr(null);
         }
       });
-  }, [props.name]);
+  }, [props.name, api.key]);
   return (
-    <div className="w-full  md:max-w-[450px] p-3 flex flex-col    lg:p-24 h-64 lg:h-[500px] bg-white bg-opacity-40 backdrop-blur-lg rounded drop-shadow-lg text-zinc-700">
+    <div className="w-full  md:max-w-[470px] p-3 flex flex-col    lg:p-24 h-64 lg:h-[500px] bg-white bg-opacity-40 backdrop-blur-lg rounded drop-shadow-lg text-zinc-700">
       <div className=" text-right ">
         <button onClick={() => removePlace(props.index)}>🗙</button>
       </div>
