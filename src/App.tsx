@@ -37,7 +37,7 @@ function App() {
     setPlaces(changePlace);
   };
   return (
-    <div className="flex  flex-col z-0  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-[100vw] ">
+    <div className="flex overflow-hidden  flex-col z-0  bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-[100vw] ">
       <div className="flex flex-row justify-center">
         <h1 className="text-5xl mx-32 my-3 font-sans  ">
           Weather<span className="font-black">Forecast</span>
